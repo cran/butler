@@ -1,0 +1,32 @@
+# Test test
+# ==========================================
+
+# Test assert.equal
+test_assert_equal <- function() {
+	assert.equal(5,5)
+	assert.equal(data.frame(),data.frame())
+	assert.error(!assert.equal(5,"5"))
+	assert.error(!assert.equal(4,5))
+}
+# Test assert.isS3class
+test_assert_equal <- function() {
+	assert.isS3class(data.frame(), "data.frame")
+	assert.error(assert.isS3class(data.frame(), "data"))
+}
+
+# Test assert.warning and friends
+test_assert_warning <- function() {
+	assert.equal(NA, get_warning(5))
+
+	assert.warning(assert.warning(5))
+	assert.warning(assert.warning(warning("hadley"), "john"))
+
+	assert.warning(warning("hadley"))
+	assert.warning(warning("hadley"), "hadley")
+
+	w <- get_warning(warning("hi"))
+	assert.isS3class(w, "warning")
+	assert.equal(w$message, "hi")
+}
+
+

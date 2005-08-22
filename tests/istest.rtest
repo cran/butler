@@ -1,0 +1,24 @@
+# 
+
+test <- function() "I'm a test"
+testcomplicated <- function() {
+	"I'm a test with complicated internals to make sure parse is working ok"
+	
+	hadley <- function() "hadley"
+	#And a comment
+}
+test1 <- function() "I'm a test"
+test.cheese <- function() "I'm a test"
+testumbilical <- function() "I'm a test"
+
+assert <- function() "I'm an assert"
+assert1 <- function() "I'm an assert"
+assert.cheese <- function() "I'm an assert"
+assertumbilical <- function() "I'm an assert"
+
+nottest <- function() "I'm a not test"
+blah <- function() "I'm not a test either"
+
+3
+print("hello")
+a <- 2

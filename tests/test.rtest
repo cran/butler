@@ -1,0 +1,56 @@
+# Test components
+source("../r/test.r")
+source("../r/assert.r")
+
+test_is_test <- function() {
+	empty <- parse("empty.rtest")
+	one <- parse("error.rtest")
+	notest <- parse("no-tests.rtest")
+	many <- parse("istest.rtest")
+	
+	assert.equal(0, length(empty))
+	assert.equal(1, length(one))
+	assert.equal(1, length(notest))
+	assert.equal(14, length(many))
+	
+	assert.equal(list(), sapply(empty, is.test))	
+	assert.equal(TRUE, sapply(one, is.test))
+	assert.equal(FALSE, sapply(notest, is.test))
+	assert.equal(c(rep(TRUE, 5), rep(FALSE, 9)), sapply(many, is.test))	
+}
+
+test_test_result <- function() {
+	failed <- parse("assert-failed.rtest")
+	result <- test.result(failed[[1]])
+
+	assert.equal("test_fail", result$test)
+	assert.equal("FALSE not true", result$message)
+	
+	error <- parse("error.rtest")
+	result <- test.result(error[[1]])
+	assert.equal("testError", result$test)
+	assert.equal("Error!", result$message)
+}
+
+test_expression_stuff <- function() {
+	assert.equal(NULL, expression.test(expression(1+2)[[1]]))
+
+	exp_error <- expression(testa <- function() stop("hadley"))[[1]]
+	exp_assert <- expression(test <- function() assert(FALSE))[[1]]
+
+	assert.isS3class(test.result(exp_error)$error, "error")
+	assert(is.test(exp_error))
+
+	assert.isS3class(test.result(exp_assert)$error, "assertError")
+	assert(is.test(exp_assert))
+
+}
+# Test containment
+
+test_containment <- function() {
+	a <- 2; b <- 1;
+	test("containment.rtest", print=FALSE)
+
+	assert.equal(2, a)
+	assert.equal(1, b)	
+}

@@ -1,0 +1,10 @@
+# This code won't be run because it's not in a test function
+a <- 1
+b <- 2
+
+test_c <- function() {
+	a <- 1
+	b <- 2
+	assert.equal(1, a)
+	assert.equal(2, b)	
+}
